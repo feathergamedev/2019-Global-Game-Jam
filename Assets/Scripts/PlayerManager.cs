@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityAtoms;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -11,13 +12,16 @@ public class PlayerManager : MonoBehaviour
     private Vector2 m_velocity;
 
     [SerializeField]
-    [Header("速度的倍率")]
-    private float moveSpeed;
+    private FloatVariable moveSpeed;
+
+    [SerializeField]
+    private float init_moveSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
         m_rigid = GetComponent<Rigidbody2D>();
+        moveSpeed.Value = init_moveSpeed;
     }
 
     // Update is called once per frame
@@ -28,6 +32,9 @@ public class PlayerManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        m_rigid.velocity = m_velocity * moveSpeed;
+        m_rigid.velocity = m_velocity * moveSpeed.Value;
     }
+
+
+
 }
